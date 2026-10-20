@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PesoGrow Crypto – Invest & Earn</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ff;--card:#fff;--ink:#231a45;--mut:#6d6590;--line:#e3dcf5;--acc:#ffbf3c;--accink:#3a2800;--up:#14886f;--down:#d8483a;--field:#faf8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17112e;--card:#221a42;--ink:#f3efff;--mut:#a79fc9;--line:#372d62;--up:#4fd8b6;--down:#ff8678;--field:#1b1436}}
+:root[data-theme="dark"]{--bg:#17112e;--card:#221a42;--ink:#f3efff;--mut:#a79fc9;--line:#372d62;--up:#4fd8b6;--down:#ff8678;--field:#1b1436}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.5 "DM Sans",system-ui,sans-serif}
+h1,h2,h3,.num{font-family:"Bricolage Grotesque","DM Sans",sans-serif;letter-spacing:-.02em;margin:0}
+button{font:inherit;cursor:pointer}
+.hide{display:none!important}
+input,select{font:inherit;color:var(--ink);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;width:100%}
+input:focus,button:focus-visible,select:focus{outline:3px solid var(--acc);outline-offset:1px}
+.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;background:var(--acc);color:var(--accink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.gcash{background:#007DFE;color:#fff;border:none}
+.btn.crypto{background:#f7931a;color:#fff;border:none}
+.btn:active{transform:translateY(1px)}
+/* login */
+#auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.story{background:#2a1f5c;color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.story h1{font-size:clamp(34px,5vw,56px);line-height:1.02;font-weight:800;max-width:11em}
+.story p{color:#cfc6f3;max-width:30em;margin:14px 0 0}
+.brand{font-family:"Bricolage Grotesque";font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center}
+.brand b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--accink)}
+.story svg{width:100%;height:150px}
+.formside{display:grid;place-items:center;padding:32px 22px}
+.formbox{width:100%;max-width:380px}
+.tabs{display:flex;background:var(--line);border-radius:12px;padding:4px;margin:18px 0 22px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--mut);padding:9px;border-radius:9px;font-weight:700}
+.tabs button.on{background:var(--card);color:var(--ink)}
+.f{margin-bottom:14px}.f label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+.err{color:var(--down);font-size:12px;min-height:16px;margin-top:4px}
+.pw{position:relative}.pw button{position:absolute;right:6px;top:6px;border:0;background:none;color:var(--mut);font-size:13px;font-weight:700;padding:6px 8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+.row label{display:flex;gap:8px;align-items:center}.row input{width:auto}
+.fine{font-size:12px;color:var(--mut);margin-top:18px;text-align:center}
+/* app */
+.wrap{max-width:1100px;margin:0 auto;padding:20px 18px 48px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.bar .brand{color:var(--ink)}
+.who{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mut)}
+.badge{background:var(--acc);color:var(--accink);font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.hero{grid-column:span 12;display:grid;grid-template-columns:1fr 1.3fr;gap:24px;align-items:center}
+.hero .num{font-size:clamp(34px,6vw,58px);font-weight:800;line-height:1.05}
+.lbl{color:var(--mut);font-size:13px}
+.up{color:var(--up)}.down{color:var(--down)}
+.split{display:flex;gap:22px;margin-top:14px;flex-wrap:wrap}.split strong{display:block;font-size:18px}
+#chart{width:100%;height:190px}
+.c4{grid-column:span 4}.c6{grid-column:span 6}.c5{grid-column:span 5}.c7{grid-column:span 7}.c12{grid-column:span 12}
+h2{font-size:18px;margin-bottom:4px}.sub{color:var(--mut);font-size:13px;margin:0 0 16px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.risk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.risk button{border:1.5px solid var(--line);background:var(--field);color:var(--ink);border-radius:10px;padding:10px 6px;font-size:13px;font-weight:700}
+.risk button.on{border-color:var(--acc);box-shadow:inset 0 0 0 1.5px var(--acc)}
+.risk small{display:block;font-weight:400;color:var(--mut)}
+.bartrack{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 6px}
+.bartrack i{display:block;height:100%;background:var(--acc);width:0;transition:width .5s}
+ul{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+li span{color:var(--mut);font-size:12px;display:block}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.three>div{background:var(--field);border-radius:10px;padding:12px}.three strong{display:block;font-size:17px}
+.note{font-size:12px;color:var(--mut);border-left:3px solid var(--acc);padding-left:10px;margin-top:14px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;z-index:9999}
+#toast.on{opacity:1}
+@media(max-width:860px){#auth{grid-template-columns:1fr}.story{padding:28px 22px}.story svg{display:none}.hero,.c4,.c5,.c6,.c7{grid-column:span 12;grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<section id="auth">
+  <div class="story">
+    <div class="brand"><b>₱</b> PesoGrow Crypto</div>
+    <div>
+      <h1>Multiply your money with Crypto today.</h1>
+      <p>Deposit funds, choose your crypto portfolio, and cashout your earnings directly to your GCash account instantly.</p>
+    </div>
+    <svg viewBox="0 0 400 150" preserveAspectRatio="none" aria-hidden="true"><polyline id="decor" fill="none" stroke="#ffbf3c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points=""/></svg>
+  </div>
+  <div class="formside"><div class="formbox">
+    <h2 style="font-size:26px" id="authTitle">Welcome back</h2>
+    <div class="tabs" role="tablist"><button class="on" id="tLogin" type="button">Log in</button><button id="tSign" type="button">Sign up</button></div>
+    <form id="authForm" novalidate>
+      <div class="f hide" id="nameF"><label for="name">Display name</label><input id="name" autocomplete="nickname" placeholder="Thairon Cruz"></div>
+      <div class="f"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+      <div class="f"><label for="pw">Password</label><div class="pw"><input id="pw" type="password" autocomplete="current-password" placeholder="At least 8 characters"><button type="button" id="eye">Show</button></div></div>
+      <div class="err" id="err" role="alert"></div>
+      <div class="row" style="margin:6px 0 16px"><label><input type="checkbox" id="rem" checked> Remember me</label></div>
+      <button class="btn" style="width:100%" id="go">Log in</button>
+      <button class="btn ghost" style="width:100%;margin-top:10px" type="button" id="demoBtn">Try the demo account</button>
+    </form>
+    <p class="fine">Start investing today.</p>
+  </div></div>
+</section>
+
+<main id="app" class="hide"><div class="wrap">
+  <div class="bar">
+    <div class="brand"><b>₱</b> PesoGrow Crypto</div>
+    <div class="who"><span class="badge">Live Market</span><span id="hello"></span><button class="btn ghost" id="out">Log out</button></div>
+  </div>
+  <div class="grid">
+    <section class="card hero">
+      <div>
+        <div class="lbl">Total Portfolio Balance · Day <span id="day">0</span></div>
+        <div class="num" id="total">₱0</div>
+        <div id="delta" class="up" style="font-weight:700"></div>
+        <div class="split"><div><span class="lbl">Wallet (Available)</span><strong id="wal">₱0</strong></div><div><span class="lbl">Invested in Crypto</span><strong id="inv">₱0</strong></div></div>
+      </div>
+      <svg id="chart" viewBox="0 0 600 190" preserveAspectRatio="none" role="img" aria-label="Total balance over time"></svg>
+    </section>
+
+    <section class="card c5">
+      <h2>Add Funds & Cashout</h2><p class="sub">Deposit money or withdraw to your GCash.</p>
+      <div class="acts" style="margin-bottom: 20px;">
+        <button class="btn crypto" id="depositBtn">Deposit Real Funds</button>
+        <button class="btn gcash" id="gcashBtn">Cashout via GCash</button>
+      </div>
+
+      <h2>Invest or Sell</h2><p class="sub">Move pesos between your wallet and the crypto market.</p>
+      <input id="amt" type="number" min="1" step="100" value="1000" aria-label="Amount">
+      <div class="acts"><button class="btn" id="plant">Buy Crypto</button><button class="btn ghost" id="harvest">Sell Crypto</button></div>
+      <h3 style="font-size:15px;margin-top:22px">Pick your Portfolio</h3>
+      <div class="risk" id="risk">
+        <button data-r="0">Stablecoins<small>low risk</small></button>
+        <button data-r="1" class="on">Bluechip (BTC/ETH)<small>medium risk</small></button>
+        <button data-r="2">Meme Coins<small>high risk/reward</small></button>
+      </div>
+      <div class="acts" style="margin-top:15px"><button class="btn" id="d1">+1 day</button><button class="btn" id="d7">+7 days</button><button class="btn" id="d30">+30 days</button></div>
+    </section>
+
+    <section class="card c7">
+      <h2>Goal tracker</h2><p class="sub">What are you saving toward?</p>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:10px"><input id="gname" aria-label="Goal name" placeholder="New car"><input id="gamt" type="number" min="1" aria-label="Goal amount" value="25000"></div>
+      <div class="bartrack"><i id="gbar"></i></div>
+      <div class="lbl" id="gtxt"></div>
+      <h3 style="font-size:15px;margin-top:22px">What if? Estimated outcome of today’s portfolio</h3>
+      <div class="three" id="what"></div>
+      <div class="row" style="margin-top:12px"><span>Days</span><input id="wd" type="number" min="1" max="3650" value="90" style="width:90px"></div>
+    </section>
+
+    <section class="card c12">
+      <h2>Transaction History</h2><p class="sub">Everything that happened in your account.</p>
+      <ul id="tx"></ul>
+    </section>
+  </div>
+</div><div id="toast" role="status"></div></main>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP',maximumFractionDigits:0}).format(n);
+const fmt2=n=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP'}).format(n);
+// soils: mean and volatility per day (Crypto)
+const SOIL=[{m:.0002,s:.0004,n:'Stablecoins'},{m:.002,s:.015,n:'Bluechip Crypto'},{m:.005,s:.04,n:'Meme Coins'}];
+let user=null,S=null;
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3000)}
+function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+
+// decorative line on login
+(function(){let y=75,p=[];for(let i=0;i<=40;i++){y+=gauss()*9-1.6;y=Math.max(15,Math.min(135,y));p.push((i*10)+','+(150-y).toFixed(1))}$('decor').setAttribute('points',p.join(' '))})();
+
+// auth
+let mode='login';
+function setMode(m){mode=m;$('tLogin').classList.toggle('on',m=='login');$('tSign').classList.toggle('on',m=='sign');$('nameF').classList.toggle('hide',m=='login');$('go').textContent=m=='login'?'Log in':'Create account';$('authTitle').textContent=m=='login'?'Welcome back':'Start investing';$('pw').autocomplete=m=='login'?'current-password':'new-password';$('err').textContent=''}$('tLogin').onclick=()=>setMode('login');$('tSign').onclick=()=>setMode('sign');$('eye').onclick=()=>{const h=$('pw').type=='password';$('pw').type=h?'text':'password';$('eye').textContent=h?'Hide':'Show'};$('authForm').onsubmit=e=>{
+  e.preventDefault();
+  const email=$('email').value.trim().toLowerCase(),pw=$('pw').value,name=$('name').value.trim();
+  let m='';
+  if(mode=='sign'&&name.length<2)m='Enter a display name with at least 2 characters.';
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))m='Enter a valid email address, like you@example.com.';
+  else if(pw.length<8)m='Use a password with at least 8 characters.';
+  else if(mode=='sign'&&!/\d/.test(pw))m='Add at least one number to your password.';
+  $('err').textContent=m;if(m)return;
+  enter({email,name:name||email.split('@')[0]},$('rem').checked);
+};
+$('demoBtn').onclick=()=>enter({email:'demo@pesogrow.test',name:'Demo Investor'},false);
+
+function enter(u,remember){
+  user=u;if(remember)store.set('pg_user',JSON.stringify(u));else store.del('pg_user');
+  const saved=store.get('pg_state_'+u.email);
+  S=saved?JSON.parse(saved):{wallet:0,inv:0,day:0,soil:1,hist:[0],tx:[],gname:'New car',gamt:50000};
+  $('auth').classList.add('hide');$('app').classList.remove('hide');$('hello').textContent='Hi, '+u.name;
+  $('gname').value=S.gname;$('gamt').value=S.gamt;
+  render();
+}
+$('out').onclick=()=>{store.del('pg_user');user=null;$('app').classList.add('hide');$('auth').classList.remove('hide');$('pw').value=''};
+
+// app logic
+function save(){S.gname=$('gname').value;S.gamt=Number($('gamt').value)||1;store.set('pg_state_'+user.email,JSON.stringify(S))}
+function log(t,a){S.tx.unshift({t,a,d:S.day});if(S.tx.length>60)S.tx.pop()}
+function amount(){const a=Math.floor(Number($('amt').value));if(!(a>0)){toast('Enter an amount above zero.');return 0}return a}
+
+// DEPOSIT AND CASHOUT FEATURES
+$('depositBtn').onclick=()=>{
+  const depositAmt = prompt("Enter amount in PHP to deposit via Bank/Crypto transfer:");
+  const val = Number(depositAmt);
+  if(val > 0) {
+    S.wallet += val;
+    S.hist.push(S.wallet+S.inv);
+    log('Deposited Funds', val);
+    toast('Successfully deposited ' + fmt(val) + ' into your wallet.');
+    render();
+  } else if (depositAmt !== null) {
+    toast('Invalid deposit amount.');
+  }
+};
+
+$('gcashBtn').onclick=()=>{
+  if(S.wallet <= 0) return toast("Your wallet is empty. Sell crypto first to cashout.");
+  const gcashNum = prompt("Enter your GCash Mobile Number (e.g., 09123456789):");
+  if(gcashNum && gcashNum.length >= 10) {
+    const cashoutAmt = prompt(`Available Wallet Balance: ${fmt(S.wallet)}\nEnter amount to cashout:`);
+    const val = Number(cashoutAmt);
+    if(val > 0 && val <= S.wallet) {
+      S.wallet -= val;
+      log(`Cashed out to GCash (${gcashNum})`, -val);
+      toast(`Successfully transferred ${fmt(val)} to GCash ${gcashNum}.`);
+      render();
+    } else if (val > S.wallet) {
+      toast("Insufficient wallet balance for cashout.");
+    } else if (cashoutAmt !== null) {
+      toast("Invalid cashout amount.");
+    }
+  } else if (gcashNum !== null) {
+    toast("Invalid GCash number.");
+  }
+};
+
+$('plant').onclick=()=>{const a=amount();if(!a)return;if(a>S.wallet)return toast('Your wallet only has '+fmt(S.wallet)+'.');S.wallet-=a;S.inv+=a;log('Bought '+SOIL[S.soil].n,-a);render()};$('harvest').onclick=()=>{const a=amount();if(!a)return;if(a>S.inv)return toast('Only '+fmt(S.inv)+' is invested.');S.inv-=a;S.wallet+=a;log('Sold '+SOIL[S.soil].n,a);render()};
+document.querySelectorAll('#risk button').forEach(b=>b.onclick=()=>{S.soil=Number(b.dataset.r);render()});
+
+function adv(n){
+  const k=SOIL[S.soil],start=S.inv;
+  for(let i=0;i<n;i++){const r=k.m+k.s*gauss();S.inv=Math.max(0,S.inv*(1+Math.max(-.5,r)));S.day++;S.hist.push(S.wallet+S.inv)}
+  if(S.hist.length>200)S.hist=S.hist.slice(-200);
+  const ch=S.inv-start;
+  if(start>0){log(n+(n>1?' days':' day')+' passed ('+k.n+')',ch);toast((ch>=0?'Portfolio grew ':'Portfolio shrank ')+fmt(Math.abs(ch)))}
+  else toast('Buy some crypto first to see it grow.');
+  render();
+}
+$('d1').onclick=()=>adv(1);$('d7').onclick=()=>adv(7);$('d30').onclick=()=>adv(30); ['gname','gamt','wd'].forEach(i=>$(i).addEventListener('input',()=>{save();render(true)}));
+
+function render(skip){
+  const total=S.wallet+S.inv;
+  $('day').textContent=S.day;$('total').textContent=fmt(total);$('wal').textContent=fmt(S.wallet);$('inv').textContent=fmt(S.inv);
+  const gain=total-S.hist[0];
+  $('delta').textContent=S.day?(gain>=0?'▲ ':'▼ ')+fmt(Math.abs(gain))+' since day 0':'';
+  $('delta').className=gain>=0?'up':'down';
+  document.querySelectorAll('#risk button').forEach(b=>b.classList.toggle('on',Number(b.dataset.r)==S.soil));
+  const g=Number($('gamt').value)||1,pct=Math.min(100,total/g*100);
+  $('gbar').style.width=pct+'%';$('gtxt').textContent=pct>=100?'Goal reached! '+($('gname').value||'Your goal')+' is yours.':fmt(total)+' of '+fmt(g)+' for '+($('gname').value||'your goal')+' ('+pct.toFixed(0)+'%)';
+  
+  const k=SOIL[S.soil],D=Math.max(1,Math.min(3650,Number($('wd').value)||1)),res=[];
+  for(let p=0;p<200;p++){let v=S.inv;for(let d=0;d<D;d++)v*=1+Math.max(-.5,k.m+k.s*gauss());res.push(v)}
+  res.sort((a,b)=>a-b);
+  const q=x=>S.wallet+res[Math.floor(x*199)];
+  $('what').innerHTML='<div><span class="lbl">Rough bad case</span><strong class="down">'+fmt(q(.1))+'</strong></div><div><span class="lbl">Typical</span><strong>'+fmt(q(.5))+'</strong></div><div><span class="lbl">Rough good case</span><strong class="up">'+fmt(q(.9))+'</strong></div>';
+  $('tx').innerHTML=S.tx.map(t=>'<li><div>'+t.t+'<span>Day '+t.d+'</span></div><b class="'+(t.a>=0?'up':'down')+'">'+(t.a>=0?'+':'−')+fmt2(Math.abs(t.a))+'</b></li>').join('');
+  
+  const h=S.hist.length>1?S.hist:[S.hist[0],S.hist[0]],mn=Math.min(...h)*.98,mx=Math.max(...h)*1.02||1,rg=mx-mn||1;
+  const pts=h.map((v,i)=>(i/(h.length-1)*600).toFixed(1)+','+(180-(v-mn)/rg*170).toFixed(1));
+  const col=gain>=0?'var(--up)':'var(--down)';
+  $('chart').innerHTML='<polyline points="0,185 '+pts.join(' ')+' 600,185" fill="'+col+'" opacity=".12"/><polyline points="'+pts.join(' ')+'" fill="none" stroke="'+col+'" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+  if(!skip)save();
+}
+
+try{const u=store.get('pg_user');if(u)enter(JSON.parse(u),true)}catch(e){}
+</script>
+</body>
+</html>
